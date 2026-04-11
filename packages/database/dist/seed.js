@@ -1,6 +1,6 @@
 import {
   prisma
-} from "./chunk-DLX6LWLG.js";
+} from "./chunk-YSHR7UI5.js";
 
 // src/seed.ts
 var DEFAULT_USERS = [
