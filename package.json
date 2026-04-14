@@ -1,19 +1,17 @@
 {
+  "name": "promptwatch-assignment",
   "private": true,
-  "prisma": {
-    "schema": "packages/database/prisma/schema",
-    "seed": "tsx packages/database/src/seed.ts"
-  },
   "scripts": {
     "build": "turbo run build",
     "db:migrate:deploy": "turbo run db:migrate:deploy",
     "db:migrate:dev": "turbo run db:migrate:dev",
     "db:push": "turbo run db:push",
-    "db:seed": "turbo run db:seed",
     "dev": "turbo run dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "generate": "turbo run generate",
-    "lint": "turbo run lint"
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "test:watch": "turbo run test:watch"
   },
   "devDependencies": {
     "prettier": "^3.8.2",
@@ -25,7 +23,6 @@
   "engines": {
     "node": ">=24"
   },
-  "name": "promptwatch-assignment",
   "dependencies": {
     "@prisma/client": "latest"
   },

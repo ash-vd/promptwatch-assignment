@@ -1,11 +1,17 @@
+import "dotenv/config";
 import Fastify from "fastify";
 import { fastifyTRPCPlugin } from "@trpc/server/adapters/fastify";
 import cors from "@fastify/cors";
 import { appRouter } from "./routers";
 import { createContext } from "./trpc";
+import type { TRPCError } from "@trpc/server";
 
 // Export the router type for use in frontend
 export type { AppRouter } from "./routers";
+export type {
+  inferRouterInputs as InferRouterInputs,
+  inferRouterOutputs as InferRouterOutputs,
+} from "@trpc/server";
 
 const fastify = Fastify({
   logger: true,
@@ -30,7 +36,13 @@ const start = async () => {
       trpcOptions: {
         router: appRouter,
         createContext,
-        onError: ({ path, error }) => {
+        onError: ({
+          path,
+          error,
+        }: {
+          path: string | undefined;
+          error: TRPCError;
+        }) => {
           console.error(`❌ tRPC failed on ${path ?? "<no-path>"}:`, error);
         },
       },

@@ -17,9 +17,6 @@
     "db:push": {
       "cache": false
     },
-    "db:seed": {
-      "cache": false
-    },
     "dev": {
       "cache": false,
       "persistent": true
@@ -28,6 +25,11 @@
       "dependsOn": ["^generate"],
       "cache": false
     },
-    "lint": {}
+    "lint": {},
+    "test": {},
+    "test:watch": {
+      "cache": false,
+      "persistent": true
+    }
   }
 }

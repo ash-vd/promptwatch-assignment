@@ -1,8 +1,8 @@
 import { router } from "../trpc";
-import { helloRouter } from "./hello";
+import { urlsRouter } from "./urls";
 
 export const appRouter = router({
-  hello: helloRouter,
+  urls: urlsRouter,
 });
 
 export type AppRouter = typeof appRouter;
