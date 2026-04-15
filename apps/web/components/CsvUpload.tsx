@@ -23,16 +23,13 @@ type UploadResult = {
   errors: { row: number; message: string }[];
 };
 
-interface CsvUploadProps {
-  onSuccess: () => void;
-}
-
-// Reading = 0-50% (real), Uploading = 50-95% (animated), Done = 100%
+// Reading = 0-50% (real), Uploading = 50-95% (animated, fake), Done = 100%
 const PHASE_READ_END = 50;
 const PHASE_UPLOAD_END = 95;
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
 
-export const CsvUpload = ({ onSuccess }: CsvUploadProps) => {
+export const CsvUpload = () => {
+  const utils = trpc.useUtils();
   const inputRef = useRef<HTMLInputElement>(null);
   const [state, setState] = useState<UploadState>("idle");
   const [readProgress, setReadProgress] = useState(0);
@@ -46,6 +43,13 @@ export const CsvUpload = ({ onSuccess }: CsvUploadProps) => {
     PHASE_READ_END,
     PHASE_UPLOAD_END,
   );
+
+  const handleSuccess = () => {
+    void utils.urls.list.invalidate();
+    void utils.urls.stats.invalidate();
+    void utils.urls.summary.invalidate();
+    void utils.urls.filterOptions.invalidate();
+  };
 
   const progress =
     state === "reading"
@@ -61,7 +65,7 @@ export const CsvUpload = ({ onSuccess }: CsvUploadProps) => {
       setState("success");
       setResult(data);
       setMessage(undefined);
-      onSuccess();
+      handleSuccess();
     },
     onError: (err) => {
       setState("error");
@@ -211,15 +215,18 @@ export const CsvUpload = ({ onSuccess }: CsvUploadProps) => {
                 {result.skipped > 0 &&
                   `, ${result.skipped.toLocaleString()} skipped`}
               </p>
+
               {result.errors.length > 0 && (
                 <ul className="mt-2 max-w-md text-left text-xs text-muted-foreground">
                   {result.errors.map((e) => (
                     <li key={e.row}>
-                      <span className="font-mono">row {e.row}</span>: {e.message}
+                      <span className="font-mono">row {e.row}</span>:{" "}
+                      {e.message}
                     </li>
                   ))}
                 </ul>
               )}
+
               <Button
                 variant="outline"
                 size="sm"
@@ -237,6 +244,7 @@ export const CsvUpload = ({ onSuccess }: CsvUploadProps) => {
               <p className="max-w-md text-sm font-medium text-destructive">
                 {message}
               </p>
+
               <Button
                 variant="outline"
                 size="sm"

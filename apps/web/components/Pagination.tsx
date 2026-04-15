@@ -23,6 +23,7 @@ export const Pagination = ({
       <p className="text-sm text-muted-foreground">
         Page {page} of {totalPages} &middot; {totalRows} total rows
       </p>
+
       <div className="flex gap-2">
         <Button
           variant="outline"
@@ -33,6 +34,7 @@ export const Pagination = ({
           <ChevronLeft className="h-4 w-4" />
           Previous
         </Button>
+
         <Button
           variant="outline"
           size="sm"

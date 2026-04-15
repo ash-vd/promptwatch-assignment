@@ -1,8 +1,15 @@
+import {
+  loadEnv
+} from "./chunk-WH5FSYP7.js";
+
 // src/client.ts
 import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 export * from "@prisma/client";
+loadEnv();
 var prismaClientSingleton = () => {
-  return new PrismaClient();
+  const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });
+  return new PrismaClient({ adapter });
 };
 var prisma = globalThis.prismaGlobal ?? prismaClientSingleton();
 if (process.env.NODE_ENV !== "production") globalThis.prismaGlobal = prisma;

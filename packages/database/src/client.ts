@@ -1,5 +1,8 @@
+import { loadEnv } from "./env.js";
 import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
+
+loadEnv();
 
 const prismaClientSingleton = () => {
   const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL });

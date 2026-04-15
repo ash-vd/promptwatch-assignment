@@ -52,7 +52,9 @@ describe("<FilterSelect />", () => {
 
     await user.click(screen.getByRole("combobox"));
 
-    expect(screen.getByRole("option", { name: "All models" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "All models" }),
+    ).toBeInTheDocument();
     expect(screen.getByRole("option", { name: "gpt-4" })).toBeInTheDocument();
     expect(screen.getByRole("option", { name: "claude" })).toBeInTheDocument();
   });
@@ -86,8 +88,12 @@ describe("<FilterSelect />", () => {
 
     await user.click(screen.getByRole("combobox"));
 
-    expect(screen.getByRole("option", { name: "POSITIVE" })).toBeInTheDocument();
-    expect(screen.getByRole("option", { name: "NEGATIVE" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "POSITIVE" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "NEGATIVE" }),
+    ).toBeInTheDocument();
   });
 
   it("still renders the 'all' entry when options is undefined", async () => {
@@ -96,7 +102,9 @@ describe("<FilterSelect />", () => {
 
     await user.click(screen.getByRole("combobox"));
 
-    expect(screen.getByRole("option", { name: "All models" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("option", { name: "All models" }),
+    ).toBeInTheDocument();
     expect(screen.queryAllByRole("option")).toHaveLength(1);
   });
 });

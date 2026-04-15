@@ -46,7 +46,9 @@ describe("<FilterBar />", () => {
       filters: { ...emptyFilters, search: "claude" },
     });
 
-    expect(screen.getByLabelText("Search URLs or titles")).toHaveValue("claude");
+    expect(screen.getByLabelText("Search URLs or titles")).toHaveValue(
+      "claude",
+    );
   });
 
   it("calls onChange with the 'search' key as the user types", async () => {
