@@ -7,7 +7,8 @@ const pendingRequests = new Map<string, Promise<string | null>>();
 
 const askOpenRouter = async (domain: string): Promise<string | null> => {
   const apiKey = process.env.OPENROUTER_API_KEY;
-  if (!apiKey) return null;
+  if (!apiKey)
+    throw new Error("Environment variable OPENROUTER_API_KEY is required");
 
   const model = process.env.OPENROUTER_MODEL;
 
