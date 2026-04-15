@@ -12,6 +12,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 import { AlertCircle, BarChart3 } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { trpc } from "../utils/trpc";
 import {
   Card,
@@ -45,16 +46,14 @@ const Skeleton = () => (
   </div>
 );
 
-const EmptyState = ({
-  icon: Icon,
-  title,
-  description,
-}: {
-  icon: typeof BarChart3;
+interface EmptyStateProps {
+  icon: LucideIcon;
   title: string;
   description: string;
-}) => (
-  <div className="flex h-[300px] flex-col items-center justify-center gap-2 text-center">
+}
+
+const EmptyState = ({ icon: Icon, title, description }: EmptyStateProps) => (
+  <div className="flex h-75 flex-col items-center justify-center gap-2 text-center">
     <Icon className="h-10 w-10 text-muted-foreground/60" />
     <p className="text-sm font-medium">{title}</p>
     <p className="text-xs text-muted-foreground">{description}</p>
@@ -85,8 +84,7 @@ export const URLChart = () => {
   }
 
   const hasData =
-    stats &&
-    (stats.domainGroups.length > 0 || stats.dateSeries.length > 0);
+    stats && (stats.domainGroups.length > 0 || stats.dateSeries.length > 0);
 
   const topDomains = (stats?.domainGroups ?? []).slice(0, 15).map((d) => ({
     ...d,
@@ -136,8 +134,9 @@ export const URLChart = () => {
       <Card>
         <CardHeader>
           <CardTitle>Activity Over Time</CardTitle>
-          <CardDescription>Entries per week, by last_updated</CardDescription>
+          <CardDescription>Entries per week, by date</CardDescription>
         </CardHeader>
+
         <CardContent>
           {hasData && (stats?.dateSeries.length ?? 0) > 0 ? (
             <ResponsiveContainer width="100%" height={300}>
@@ -153,25 +152,38 @@ export const URLChart = () => {
                     x2="0"
                     y2="1"
                   >
-                    <stop offset="0%" stopColor={CHART_COLOR} stopOpacity={0.25} />
-                    <stop offset="100%" stopColor={CHART_COLOR} stopOpacity={0} />
+                    <stop
+                      offset="0%"
+                      stopColor={CHART_COLOR}
+                      stopOpacity={0.25}
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor={CHART_COLOR}
+                      stopOpacity={0}
+                    />
                   </linearGradient>
                 </defs>
+
                 <CartesianGrid
                   strokeDasharray="3 3"
                   className="stroke-border"
                 />
+
                 <XAxis
                   dataKey="date"
                   tickFormatter={formatDate}
                   tick={{ fontSize: 11 }}
                   interval="preserveStartEnd"
                 />
+
                 <YAxis tick={{ fontSize: 12 }} allowDecimals={false} />
+
                 <Tooltip
                   labelFormatter={formatDateTooltipLabel}
                   contentStyle={TOOLTIP_STYLE}
                 />
+
                 <Area
                   type="monotone"
                   dataKey="count"

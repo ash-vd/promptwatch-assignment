@@ -4,19 +4,14 @@ import { Database, Globe, Eye, Sparkles, type LucideIcon } from "lucide-react";
 import { trpc } from "../utils/trpc";
 import { Card, CardContent } from "./ui/card";
 
-const Stat = ({
-  icon: Icon,
-  label,
-  value,
-  hint,
-  loading,
-}: {
+interface StatProps {
   icon: LucideIcon;
   label: string;
   value: string;
-  hint?: string;
   loading: boolean;
-}) => (
+}
+
+const Stat = ({ icon: Icon, label, value, loading }: StatProps) => (
   <Card>
     <CardContent className="flex items-center gap-4 py-5 h-full">
       <div className="flex h-10 w-10 items-center justify-center rounded-md bg-muted text-muted-foreground">
@@ -30,9 +25,6 @@ const Stat = ({
           <div className="mt-1 h-6 w-20 animate-pulse rounded bg-muted" />
         ) : (
           <p className="mt-0.5 text-2xl font-semibold tabular-nums">{value}</p>
-        )}
-        {hint && !loading && (
-          <p className="truncate text-xs text-muted-foreground">{hint}</p>
         )}
       </div>
     </CardContent>
@@ -62,7 +54,6 @@ export const SummaryCards = () => {
         icon={Eye}
         label="Avg visibility"
         value={`${data?.avgVisibility ?? 0}`}
-        hint={`Authority ${data?.avgAuthority ?? 0}`}
         loading={isLoading}
       />
       <Stat

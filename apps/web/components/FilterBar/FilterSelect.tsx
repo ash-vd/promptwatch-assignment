@@ -32,7 +32,9 @@ export const FilterSelect = ({
     onValueChange={(v) => onChange(v === "all" ? "" : v)}
   >
     <SelectTrigger className={triggerClassName ?? "h-9 w-40"}>
-      <SelectValue placeholder={placeholder} />
+      <SelectValue placeholder={placeholder}>
+        {value ? formatOption(value) : allLabel}
+      </SelectValue>
     </SelectTrigger>
     <SelectContent>
       <SelectItem value="all">{allLabel}</SelectItem>

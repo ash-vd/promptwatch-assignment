@@ -7,8 +7,7 @@ import type {
   SortState,
 } from "../components/URLTable/types";
 import { useDebouncedValue } from "./useDebouncedValue";
-
-const PAGE_SIZE = 20;
+import { PAGE_SIZE } from "../utils/list-defaults";
 
 const EMPTY_FILTERS: Filters = {
   aiModel: "",

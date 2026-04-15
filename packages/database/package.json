@@ -8,9 +8,6 @@
     }
   },
   "type": "module",
-  "prisma": {
-    "schema": "./prisma/schema"
-  },
   "scripts": {
     "build": "tsup src/* --format esm",
     "db:migrate:deploy": "prisma migrate deploy",
