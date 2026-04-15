@@ -4,7 +4,7 @@ services:
         environment:
             POSTGRES_USER: repo
             POSTGRES_PASSWORD: repo
-            POSTGRES_DB: repo_${NODE_ENV}
+            POSTGRES_DB: repo_${NODE_ENV:-development}
         ports:
             - "5432:5432"
         volumes:
