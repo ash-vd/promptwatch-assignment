@@ -1,6 +1,5 @@
 "use client";
 
-import { trpc } from "../utils/trpc";
 import { CsvUpload } from "../components/CsvUpload";
 import { URLChart } from "../components/URLChart";
 import { URLTable } from "../components/URLTable";

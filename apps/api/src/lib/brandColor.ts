@@ -1,4 +1,5 @@
 import type { PrismaClient } from "@repo/database";
+import { emitBrandColorsUpdated } from "./events";
 
 const OPENROUTER_URL = "https://openrouter.ai/api/v1/chat/completions";
 const HEX_REGEX = /#[0-9a-f]{6}/i;
@@ -99,6 +100,8 @@ export const getBrandColors = async (
     for (const { domain, color } of brandColors) {
       result.set(domain, color);
     }
+
+    emitBrandColorsUpdated(brandColors.map((b) => b.domain));
   }
 
   return result;
